@@ -1,4 +1,4 @@
-# 📰 Krishna News App
+# 📰 News App
 
 A modern **React Native (Expo)** application that displays categorized news articles with smooth UI, offline caching, and a dark/light mode toggle.  
 Built for both **Android** and **iOS** using Expo and modular React architecture.
