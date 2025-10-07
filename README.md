@@ -17,8 +17,6 @@ Built for both **Android** and **iOS** using Expo and modular React architecture
 
 [▶️ Watch Demo](https://drive.google.com/file/d/18ijK89p6OttdJaHOi9-49truBiUxKaci/view?usp=sharing)
 
-> Upload your app walkthrough video to YouTube, Loom, or Google Drive, then replace the link above.
-
 ---
 
 ## 🧱 Architecture Overview
