@@ -7,8 +7,9 @@ Built for both **Android** and **iOS** using Expo and modular React architecture
 
 ## 📸 Screenshots
 
-| Technology Screen | | Business Screen | | Health Screen | | Sports Screen | Article Details | Settings |
-| ![Technology](assets/screenshots/Technology.png) | ![Business](assets/screenshots/Business.png) | ![Health](assets/screenshots/Health.png) | ![Sports](assets/screenshots/Sports.png) | ![Details](assets/screenshots/Details.png) | ![Setting](assets/screenshots/Setting.png) |
+| Technology Screen                                          | Business Screen                                          | Health Screen                                          | Sports Screen                                          | Article Details                                         | Settings                                                |
+| ---------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------- |
+| <img src="assets/screenshots/Technology.png" width="200"/> | <img src="assets/screenshots/Business.png" width="200"/> | <img src="assets/screenshots/Health.png" width="200"/> | <img src="assets/screenshots/Sports.png" width="200"/> | <img src="assets/screenshots/Details.png" width="200"/> | <img src="assets/screenshots/Setting.png" width="200"/> |
 
 ---
 
