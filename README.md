@@ -24,28 +24,94 @@ Built for both **Android** and **iOS** using Expo and modular React architecture
 The project follows a **scalable and modular architecture**, designed for easy maintenance and future growth.
 
 src/
-├── api/ # Handles API calls (Axios or Fetch)
-├── components/ # Reusable UI components (Card, SearchBar, etc.)
+├── components/ # Reusable UI components (Card, SearchBar, Header)
+├── context/ # Custom context providers (Auth, Theme)
 ├── hooks/ # Custom hooks (useFetch, useTheme, etc.)
-├── navigation/ # All navigation setup (stack, tabs)
-├── screens/ # Application screens (Home, Details, Settings)
-├── store/ # State management
-├── themes/ # Theme configuration (light & dark)
+├── navigation/ # All navigation setup (Stack, Tabs)
+├── screens/ # Application screens (Technology, Business, Health, Sports, Details, Settings)
+├── store/ # Redux Toolkit store + RTK Query slices
+├── theme/ # Theme configuration (light & dark)
 └── utils/ # Helper and utility functions
 
-**Key principles:**
+Key principles:
 
-- 🔹 Separation of concerns
-- 🔹 Reusable components
-- 🔹 Centralized state management
-- 🔹 Configurable themes
+🔹 Separation of concerns (MVVM pattern)
 
-🧩 Features
+View: Screens (UI only)
 
-✅ Fetches dynamic news articles from an API
-✅ Category-based tab navigation (Technology, Sports, Health, etc.)
-✅ Offline caching for performance
-✅ Smooth transitions and animations
-✅ Light/Dark theme toggle
+ViewModel: Redux slices / RTK Query for state & API logic
+
+Service: API functions for fetching data
+
+🔹 Reusable components
+
+🔹 Centralized state management (Redux Toolkit + RTK Query)
+
+🔹 Configurable themes (dark/light mode)
+
+⚡ Features
+
+✅ Fetches dynamic news articles from NewsAPI.org
+
+✅ Category-based tab navigation: Technology, Business, Health, Sports
+✅ Redux Toolkit + RTK Query for state management and API fetching
+✅ Offline caching using AsyncStorage
+✅ Pull-to-refresh on news lists
+✅ Search functionality per category
+✅ Smooth transitions and animations with Lottie
+✅ Dark/Light theme toggle
 ✅ Responsive UI for Android and iOS
 ✅ Modular architecture for scalability
+
+🛠 State Management
+
+Redux Toolkit: Centralized state for news articles
+
+RTK Query: Handles API calls and caching
+
+MVVM Pattern:
+
+Screens observe state only (View)
+
+Redux slices / RTK Query act as ViewModel
+
+Services handle API calls
+
+📦 Local Caching
+
+On app launch or when offline, cached articles are loaded from AsyncStorage
+
+New data fetched online is automatically stored for offline access
+
+⚙ Setup Instructions
+
+Clone the repository:
+git clone https://github.com/SheetalAlbiorix/krishna_news_task.git
+cd krishna_news_task
+
+Install dependencies:
+
+npm install
+
+# or
+
+yarn install
+
+Create a .env file with your NewsAPI key:
+
+NEWS_API_KEY=your_api_key_here
+
+Start the app:
+
+npm start
+
+# or
+
+yarn start
+
+📝 Notes
+The Technology screen is fully implemented with Redux Toolkit + RTK Query; other screens follow the same pattern
+
+Offline caching ensures that the app works without an internet connection
+
+Dark/Light mode is applied globally via ThemeProvider

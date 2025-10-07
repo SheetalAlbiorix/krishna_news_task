@@ -6,11 +6,12 @@ import {
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
 import { AuthProvider } from "./context/AuthContext";
 import RootNavigator from "./navigation/AppNavigator";
 import { ThemeProvider } from "./theme/ThemeProvider";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,7 +25,7 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
+    <Provider store={store}>
       <ThemeProvider>
         {" "}
         <AuthProvider>
@@ -33,6 +34,6 @@ export default function App() {
           <Toast />
         </AuthProvider>
       </ThemeProvider>
-    </SafeAreaProvider>
+    </Provider>
   );
 }

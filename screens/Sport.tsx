@@ -1,68 +1,56 @@
-import Searchbar from "@/components/searchbar";
-import { NavigationService } from "@/navigation/NavigationService";
-import { useTheme } from "@/theme/ThemeProvider";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import NetInfo from "@react-native-community/netinfo";
-import { Image as FastImage } from "expo-image";
-import LottieView from "lottie-react-native";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
-  ActivityIndicator,
+  View,
   FlatList,
   RefreshControl,
-  StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  ActivityIndicator,
+  StyleSheet,
 } from "react-native";
-import { getNewsByQuery } from "../services/newsService";
+import { useTheme } from "@/theme/ThemeProvider";
+import { useGetNewsByCategoryQuery } from "../store/newsApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import NetInfo from "@react-native-community/netinfo";
+import Searchbar from "@/components/searchbar";
+import { NavigationService } from "@/navigation/NavigationService";
+import { Image as FastImage } from "expo-image";
+import LottieView from "lottie-react-native";
+
+const STORAGE_KEY = "@sport_news_cache";
 
 export default function Sport() {
   const { theme } = useTheme();
-
-  const [articles, setArticles] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [refreshing, setRefreshing] = useState(false);
   const [search, setSearch] = useState("");
   const [isOffline, setIsOffline] = useState(false);
+  const { data, refetch, isFetching } = useGetNewsByCategoryQuery("sport");
 
-  const STORAGE_KEY = "@sport_news_cache";
+  const [articles, setArticles] = useState<any[]>([]);
 
   useEffect(() => {
     const unsubscribe = NetInfo.addEventListener((state) => {
       setIsOffline(!state.isConnected);
     });
-    fetchSportNews();
+
+    const loadCached = async () => {
+      const cached = await AsyncStorage.getItem(STORAGE_KEY);
+      if (cached) setArticles(JSON.parse(cached));
+    };
+
+    loadCached();
     return () => unsubscribe();
   }, []);
 
-  const fetchSportNews = async () => {
-    try {
-      setLoading(true);
-      const state = await NetInfo.fetch();
-
-      if (state.isConnected) {
-        const data = await getNewsByQuery("sport");
-        setArticles(data);
-        await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-      } else {
-        const cached = await AsyncStorage.getItem(STORAGE_KEY);
-        if (cached) {
-          setArticles(JSON.parse(cached));
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (data?.articles?.length) {
+      setArticles(data.articles);
+      AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data.articles));
     }
-  };
+  }, [data]);
 
   const onRefresh = useCallback(async () => {
-    setRefreshing(true);
-    await fetchSportNews();
-    setRefreshing(false);
-  }, []);
+    await refetch();
+  }, [refetch]);
 
   const onPressCard = (item: any) => {
     NavigationService.navigate("Details", { article: item });
@@ -77,6 +65,10 @@ export default function Sport() {
     const days = Math.floor(hours / 24);
     return `${days} day${days > 1 ? "s" : ""} ago`;
   };
+
+  const filteredArticles = articles.filter((item) =>
+    (item?.title || "").toLowerCase().includes(search.trim().toLowerCase())
+  );
 
   const renderItem = ({ item }: any) => (
     <TouchableOpacity
@@ -107,15 +99,11 @@ export default function Sport() {
     </TouchableOpacity>
   );
 
-  const filteredArticles = articles.filter((item) =>
-    (item?.title || "").toLowerCase().includes(search.trim().toLowerCase())
-  );
-
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <Searchbar value={search} onChangeText={setSearch} placeholder="Search" />
 
-      {loading ? (
+      {isFetching && articles.length === 0 ? (
         <ActivityIndicator
           size="large"
           color={theme.text}
@@ -138,13 +126,13 @@ export default function Sport() {
       ) : (
         <FlatList
           data={filteredArticles}
-          showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item.url}
           renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 20 }}
           refreshControl={
             <RefreshControl
-              refreshing={refreshing}
+              refreshing={isFetching}
               onRefresh={onRefresh}
               colors={[theme.text]}
             />
@@ -156,10 +144,7 @@ export default function Sport() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 12,
-  },
+  container: { flex: 1, padding: 12 },
   card: {
     marginBottom: 16,
     borderRadius: 10,
@@ -177,26 +162,14 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     backgroundColor: "#e0e0e0",
   },
-  title: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  description: {
-    fontSize: 14,
-  },
-  time: {
-    marginTop: 6,
-    fontSize: 12,
-  },
+  title: { fontSize: 16, fontWeight: "bold", marginBottom: 4 },
+  description: { fontSize: 14 },
+  time: { marginTop: 6, fontSize: 12 },
   emptyContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 50,
   },
-  emptyText: {
-    marginTop: 12,
-    fontSize: 16,
-  },
+  emptyText: { marginTop: 12, fontSize: 16 },
 });
