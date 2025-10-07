@@ -1,50 +1,52 @@
-# Welcome to your Expo app 👋
+# 📰 Krishna News App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A modern **React Native (Expo)** application that displays categorized news articles with smooth UI, offline caching, and a dark/light mode toggle.  
+Built for both **Android** and **iOS** using Expo and modular React architecture.
 
-## Get started
+---
 
-1. Install dependencies
+## 📸 Screenshots
 
-   ```bash
-   npm install
-   ```
+| Technology Screen | | Business Screen | | Health Screen | | Sports Screen | Article Details | Settings |
+| ![Technology](assets/screenshots/Technology.png) | ![Business](assets/screenshots/Business.png) | ![Health](assets/screenshots/Health.png) | ![Sports](assets/screenshots/Sports.png) | ![Details](assets/screenshots/Details.png) | ![Setting](assets/screenshots/Setting.png) |
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🎥 Demo Video
 
-In the output, you'll find options to open the app in a
+[▶️ Watch Demo](https://drive.google.com/file/d/18ijK89p6OttdJaHOi9-49truBiUxKaci/view?usp=sharing)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+> Upload your app walkthrough video to YouTube, Loom, or Google Drive, then replace the link above.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🧱 Architecture Overview
 
-When you're ready, run:
+The project follows a **scalable and modular architecture**, designed for easy maintenance and future growth.
 
-```bash
-npm run reset-project
-```
+src/
+├── api/ # Handles API calls (Axios or Fetch)
+├── components/ # Reusable UI components (Card, SearchBar, etc.)
+├── hooks/ # Custom hooks (useFetch, useTheme, etc.)
+├── navigation/ # All navigation setup (stack, tabs)
+├── screens/ # Application screens (Home, Details, Settings)
+├── store/ # State management
+├── themes/ # Theme configuration (light & dark)
+└── utils/ # Helper and utility functions
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Key principles:**
 
-## Learn more
+- 🔹 Separation of concerns
+- 🔹 Reusable components
+- 🔹 Centralized state management
+- 🔹 Configurable themes
 
-To learn more about developing your project with Expo, look at the following resources:
+🧩 Features
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+✅ Fetches dynamic news articles from an API
+✅ Category-based tab navigation (Technology, Sports, Health, etc.)
+✅ Offline caching for performance
+✅ Smooth transitions and animations
+✅ Light/Dark theme toggle
+✅ Responsive UI for Android and iOS
+✅ Modular architecture for scalability
