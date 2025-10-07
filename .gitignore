@@ -1,0 +1,34 @@
+# React Native
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+# Expo
+.expo/
+.expo-shared/
+web-build/
+
+# MacOS
+.DS_Store
+
+# Android
+android/app/build/
+*.iml
+.gradle/
+local.properties
+
+# iOS
+ios/Pods/
+ios/build/
+*.xcworkspace
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+
+# VS Code
+.vscode/
+
+# Env files
+.env
+.env.local
+.env.*.local
